@@ -1,58 +1,88 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react'
+import {Link} from 'react-router-dom'
 
 class Recipe extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { recipe: { ingredients: "" } };
+    super(props)
+    this.state = {recipe: {ingredients: ''}}
 
-    this.addHtmlEntities = this.addHtmlEntities.bind(this);
+    this.addHtmlEntities = this.addHtmlEntities.bind(this)
+    this.deleteRecipe = this.deleteRecipe.bind(this)
   }
 
   componentDidMount() {
     const {
       match: {
-        params: { id }
-      }
-    } = this.props;
+        params: {id},
+      },
+    } = this.props
 
-    const url = `/api/v1/show/${id}`;
+    const url = `/api/v1/show/${id}`
 
     fetch(url)
-      .then(response => {
+      .then((response) => {
         if (response.ok) {
-          return response.json();
+          return response.json()
         }
-        throw new Error("Network response was not ok.");
+        throw new Error('Network response was not ok.')
       })
-      .then(response => this.setState({ recipe: response }))
-      .catch(() => this.props.history.push("/recipes"));
+      .then((response) => this.setState({recipe: response}))
+      .catch(() => this.props.history.push('/recipes'))
   }
 
   addHtmlEntities(str) {
     return String(str)
-      .replace(/&lt;/g, "<")
-      .replace(/&gt;/g, ">");
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+  }
+
+  deleteRecipe() {
+    const {
+      match: {
+        params: {id},
+      },
+    } = this.props
+    const url = `/api/v1/destroy/${id}`
+    const token = document.querySelector('meta[name="csrf-token"]').content
+
+    fetch(url, {
+      method: 'DELETE',
+      headers: {
+        'X-CSRF-Token': token,
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json()
+        }
+        throw new Error('Network response was not ok.')
+      })
+      .then(() => this.props.history.push('/recipes'))
+      .catch((error) => console.log(error.message))
   }
 
   render() {
-    const { recipe } = this.state;
-    let ingredientList = "No ingredients available";
+    const {recipe} = this.state
+    let ingredientList = 'No ingredients available'
 
     if (recipe.ingredients.length > 0) {
       ingredientList = recipe.ingredients
-        .split(",")
+        .split(',')
         .map((ingredient, index) => (
           <li key={index} className="list-group-item">
             {ingredient}
           </li>
-        ));
+        ))
     }
-    const recipeInstruction = this.addHtmlEntities(recipe.instruction);
+    const recipeInstruction = this.addHtmlEntities(recipe.instruction)
 
     return (
       <div className="">
-        <div className="hero position-relative d-flex align-items-center justify-content-center">
+        <div className={
+          'hero position-relative d-flex' +
+          'align-items-center justify-content-center'
+        }>
           <img
             src={recipe.image}
             alt={`${recipe.name} image`}
@@ -75,12 +105,16 @@ class Recipe extends React.Component {
               <h5 className="mb-2">Preparation Instructions</h5>
               <div
                 dangerouslySetInnerHTML={{
-                  __html: `${recipeInstruction}`
+                  __html: `${recipeInstruction}`,
                 }}
               />
             </div>
             <div className="col-sm-12 col-lg-2">
-              <button type="button" className="btn btn-danger">
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={this.deleteRecipe}
+              >
                 Delete Recipe
               </button>
             </div>
@@ -90,8 +124,8 @@ class Recipe extends React.Component {
           </Link>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Recipe;
+export default Recipe
