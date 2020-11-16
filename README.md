@@ -32,6 +32,7 @@ Things you may want to cover:
 * https://guides.rubyonrails.org/getting_started.html
 * https://blog.yechiel.me/generating-belongs-to-associations-in-rails-be7b7fdea96c
 * https://guides.rubyonrails.org/routing.html
+* https://www.digitalocean.com/community/tutorials/how-to-create-nested-resources-for-a-ruby-on-rails-application
 
 #### Frontend
 
