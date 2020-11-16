@@ -29,6 +29,9 @@ Things you may want to cover:
 * https://guides.railsgirls.com/devise
 
 #### Backend
+* https://guides.rubyonrails.org/getting_started.html
+* https://blog.yechiel.me/generating-belongs-to-associations-in-rails-be7b7fdea96c
+* https://guides.rubyonrails.org/routing.html
 
 #### Frontend
 

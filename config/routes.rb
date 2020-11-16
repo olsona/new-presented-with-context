@@ -8,6 +8,10 @@ Rails.application.routes.draw do
       post 'recipes/create'
       get '/show/:id', to: 'recipes#show'
       delete '/destroy/:id', to: 'recipes#destroy'
+
+      resources :wishlists, only: %i[index create show destroy] do
+        resources :wishlist_items, only: %i[index create show update destroy]
+      end
     end
   end
   root 'homepage#index'
