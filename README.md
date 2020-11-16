@@ -31,3 +31,7 @@ Things you may want to cover:
 #### Backend
 
 #### Frontend
+
+#### Workflow
+* https://www.digitalocean.com/community/tutorials/workflow-auto-eslinting
+* https://stackoverflow.com/questions/48030698/vscode-vscode-ruby-rubocop-how-to-auto-correct-on-save
