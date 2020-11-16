@@ -22,3 +22,12 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+## References
+#### Full-Stack
+* https://www.digitalocean.com/community/tutorials/how-to-set-up-a-ruby-on-rails-project-with-a-react-frontend
+* https://guides.railsgirls.com/devise
+
+#### Backend
+
+#### Frontend
