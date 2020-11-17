@@ -1,18 +1,14 @@
 class Api::V1::WishlistsController < ApplicationController
-  protect_from_forgery with: :null_session
-
   before_action :wishlist, only: %i[show destroy]
 
   def index
-    @all_wishlists = Wishlist.all.order(created_at: :desc)
-    render json: @all_wishlists
+    @all_user_wishlists = current_user.wishlists.order(created_at: :asc)
+    render json: @all_user_wishlists
   end
 
   def create
-    params = wishlist_creation_params
-    user = User.find(params.user_id)
-    @wishlist = user.wishlists.build
-    user.save!
+    @wishlist = current_user.wishlists.build
+    @wishlist.save!
     if @wishlist
       render json: @wishlist
     else
@@ -30,10 +26,6 @@ class Api::V1::WishlistsController < ApplicationController
   end
 
   private
-
-  def wishlist_creation_params
-    params.permit(:user_id)
-  end
 
   def wishlist
     @wishlist ||= Wishlist.find(params[:id])

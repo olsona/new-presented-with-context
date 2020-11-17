@@ -1,11 +1,9 @@
 class Api::V1::WishlistItemsController < ApplicationController
-  protect_from_forgery with: :null_session
-
   before_action :wishlist
   before_action :wishlist_item, only: %i[show update destroy]
 
   def index
-    @all_items = @wishlist.wishlist_items.order(created_at: :desc)
+    @all_items = @wishlist.wishlist_items.order(created_at: :asc)
     render json: @all_items
   end
 
@@ -41,7 +39,7 @@ class Api::V1::WishlistItemsController < ApplicationController
   private
 
   def wishlist_item_params
-    params.permit(:wishlist_id, :item, :checked)
+    params.permit(:item, :checked)
   end
 
   def wishlist
