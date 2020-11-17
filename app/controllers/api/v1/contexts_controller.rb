@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::ContextsController < ApplicationController
   before_action :context, only: %i[show update destroy]
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::WishlistItemsController < ApplicationController
   before_action :wishlist
   before_action :wishlist_item, only: %i[show update destroy]

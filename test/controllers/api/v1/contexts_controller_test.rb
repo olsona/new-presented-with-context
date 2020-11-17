@@ -1,4 +1,6 @@
-require 'test_helper'
+# frozen_string_literal: true
+
+require "test_helper"
 
 class Api::V1::ContextsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
@@ -25,5 +27,4 @@ class Api::V1::ContextsControllerTest < ActionDispatch::IntegrationTest
     get api_v1_contexts_destroy_url
     assert_response :success
   end
-
 end
