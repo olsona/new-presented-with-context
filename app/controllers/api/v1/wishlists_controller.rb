@@ -8,7 +8,7 @@ class Api::V1::WishlistsController < ApplicationController
 
   def create
     if current_user.wishlists.count.positive?
-      render json: {message: "User already has a wishlist!"}
+      render json: { message: "User already has a wishlist!" }
       return
     end
 
@@ -27,7 +27,7 @@ class Api::V1::WishlistsController < ApplicationController
 
   def destroy
     @wishlist&.destroy
-    render json: {message: "Wishlist deleted!"}
+    render json: { message: "Wishlist deleted!" }
   end
 
   private

@@ -39,7 +39,7 @@ class Api::V1::WishlistItemsController < ApplicationController
   private
 
   def wishlist_item_params
-    params.require(:item).permit(:checked)
+    params.permit(:item, :checked)
   end
 
   def wishlist

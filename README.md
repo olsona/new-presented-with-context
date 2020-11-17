@@ -34,6 +34,7 @@ Things you may want to cover:
 * https://guides.rubyonrails.org/routing.html
 * https://www.digitalocean.com/community/tutorials/how-to-create-nested-resources-for-a-ruby-on-rails-application
 * https://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection/ClassMethods.html
+* https://medium.com/backticks-tildes/restful-api-design-put-vs-patch-4a061aa3ed0b
 
 #### Frontend
 

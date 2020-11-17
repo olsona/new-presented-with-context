@@ -4,5 +4,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  # I do not intend right now for users to have multiples of these,
+  # but I don't want to make things harder down the road.
   has_many :wishlists
+  has_many :contexts
 end
