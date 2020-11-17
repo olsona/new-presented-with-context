@@ -33,13 +33,13 @@ class Api::V1::WishlistItemsController < ApplicationController
 
   def destroy
     @wishlist_item&.destroy
-    render json: { message: 'Wishlist item deleted!' }
+    render json: { message: "Wishlist item deleted!" }
   end
 
   private
 
   def wishlist_item_params
-    params.permit(:item, :checked)
+    params.require(:item).permit(:checked)
   end
 
   def wishlist
