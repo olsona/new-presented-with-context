@@ -51,4 +51,8 @@ class Api::V1::WishlistItemsController < ApplicationController
   def wishlist_item
     @wishlist_item ||= WishlistItem.find(params[:id])
   end
+
+  def render_own_wishlist_item
+    render json: @wishlist_item.except(:checked)
+  end
 end

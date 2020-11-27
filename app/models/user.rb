@@ -8,6 +8,6 @@ class User < ApplicationRecord
 
   # I do not intend right now for users to have multiples of these,
   # but I don't want to make things harder down the road.
-  has_many :wishlists
-  has_many :contexts
+  has_many :wishlists, dependent: :destroy
+  has_many :contexts, dependent: :destroy
 end
