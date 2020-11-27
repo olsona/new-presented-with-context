@@ -1,39 +1,48 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 // import {Link} from 'react-router-dom'
+import axios from 'axios'
 
 import WishlistDisplay from './WishlistDisplay'
 import { WishlistT } from '../shared/interfaces/wishlist.interface'
 
-const testWishlist: WishlistT = {
-  id: 1,
-  userId: 1,
-  items: [
-    {
-      id: 1,
-      wishlistId: 1,
-      item: 'A pony',
-      checked: false,
-    },
-    {
-      id: 2,
-      wishlistId: 1,
-      item: 'Watercolor paints',
-      checked: true,
-    },
-  ],
-}
-
-export default () => (
-  <div className={
-    'vw-100 vh-100 primary-color d-flex' +
-    'align-items-center justify-content-center'
-  }>
-    <div className="jumbotron jumbotron-fluid bg-transparent">
-      <div className="container secondary-color">
-        <WishlistDisplay
-          wishlist={testWishlist}
-        />
-      </div>
-    </div>
+const LoadingPage = (
+  <div>
+    Loading...
   </div>
 )
+
+export default () => {
+  const [wishlists, setWishlists] = useState<WishlistT[]>([])
+
+  useEffect(() => {
+    fetchWishlist();
+  }, [])
+
+  const fetchWishlist = async () => {
+    try {
+      const indexResponse = await axios.get("/api/v1/wishlists");
+      setWishlists(indexResponse.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  if (wishlists.length === 0) {
+    return LoadingPage
+  } else {
+    return (
+      <div className={
+        'vw-100 vh-100 primary-color d-flex' +
+        'align-items-center justify-content-center'
+      }>
+        <div className="jumbotron jumbotron-fluid bg-transparent">
+          <div className="container secondary-color">
+            <WishlistDisplay
+              wishlist={wishlists[0]}
+            />
+          </div>
+        </div>
+      </div>
+    )
+  }
+}
