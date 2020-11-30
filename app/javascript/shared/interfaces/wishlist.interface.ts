@@ -2,7 +2,7 @@ export interface WishlistItemT {
   id: number,
   wishlistId: number,
   item: string,
-  checked: boolean
+  checked?: boolean
 };
 
 export interface WishlistT {

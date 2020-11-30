@@ -38,6 +38,10 @@ class Api::V1::WishlistsController < ApplicationController
     @wishlist ||= Wishlist.find(params[:id])
   end
 
+  def wishlist_params
+    params.permit(:id)
+  end
+
   def rendered_wishlist(wishlist)
     {
       id:     wishlist.id,

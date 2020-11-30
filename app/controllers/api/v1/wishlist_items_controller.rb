@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'pry'
 
 class Api::V1::WishlistItemsController < ApplicationController
   before_action :wishlist
@@ -10,6 +11,8 @@ class Api::V1::WishlistItemsController < ApplicationController
   end
 
   def create
+    binding.pry
+
     @wishlist_item = @wishlist.wishlist_items.build(wishlist_item_params)
     @wishlist_item.save!
     if @wishlist_item
@@ -41,7 +44,7 @@ class Api::V1::WishlistItemsController < ApplicationController
   private
 
   def wishlist_item_params
-    params.permit(:item, :checked)
+    params.fetch(:wishlist_item, {}).permit(:item, :checked, :id, :wishlist_id)
   end
 
   def wishlist

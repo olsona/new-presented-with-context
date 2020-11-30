@@ -35,6 +35,7 @@ Things you may want to cover:
 * https://www.digitalocean.com/community/tutorials/how-to-create-nested-resources-for-a-ruby-on-rails-application
 * https://api.rubyonrails.org/classes/ActionController/RequestForgeryProtection/ClassMethods.html
 * https://medium.com/backticks-tildes/restful-api-design-put-vs-patch-4a061aa3ed0b
+* https://github.com/rails/rails/issues/37982#issuecomment-567016751 - couldn't figure out why I was getting extra params!
 
 #### Frontend
 
