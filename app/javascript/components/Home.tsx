@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-// import {Link} from 'react-router-dom'
 import axios from 'axios'
+import { Typography, Divider, Button } from '@material-ui/core';
+import { Link as RouterLink } from 'react-router-dom';
 
 import WishlistDisplay from './WishlistDisplay'
 import { WishlistT } from '../shared/interfaces/wishlist.interface'
@@ -31,9 +32,25 @@ export default () => {
     return LoadingPage
   } else {
     return (
-      <WishlistDisplay
-        wishlist={wishlists[0]}
-      />
+      <div>
+        <Typography variant="h4" color="textPrimary" align="center">
+          Hello and welcome to
+      </Typography>
+        <Typography variant="h3" color="textPrimary" align="center">
+          Presented With Context!
+      </Typography>
+        <Typography variant="subtitle1" color="textSecondary" align="center">
+          This is hilariously under construction!
+      </Typography>
+        <Divider />
+        <WishlistDisplay
+          wishlist={wishlists[0]}
+        />
+        <Divider />
+        <Button variant="contained" color="secondary" component={RouterLink} to="/wishlist/new">
+          Add to your wishlist!
+      </Button>
+      </div>
     )
   }
 }
