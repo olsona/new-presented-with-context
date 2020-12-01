@@ -1,16 +1,17 @@
 import React, { ChangeEvent, FormEvent, MouseEvent, ReactElement, useState } from 'react'
 import _ from 'lodash'
 import axios from 'axios'
+import { List, ListItem, ListItemText, ListItemIcon, Checkbox, ListItemSecondaryAction, IconButton, Grid, Paper } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
-import { WishlistT } from '../shared/interfaces/wishlist.interface'
+import { WishlistT, WishlistItemT } from '../shared/interfaces/wishlist.interface'
 
 const WishlistDisplay: React.FC<{ wishlist: WishlistT }> = (props) => {
   const [wishlistState, setWishlistState] = useState(props.wishlist.items)
   const [newItem, setNewItem] = useState<string>('')
 
-  const toggleCheckbox = async (event: ChangeEvent) => {
-    event.preventDefault()
-    const index = parseInt(event.target.id)
+  const toggleCheckbox = async (index: number) => {
     const newWishlistState = _.cloneDeep(wishlistState)
     const updatedWishlistItem = newWishlistState[index]
     updatedWishlistItem.checked = !wishlistState[index].checked
@@ -31,21 +32,39 @@ const WishlistDisplay: React.FC<{ wishlist: WishlistT }> = (props) => {
     console.log("Add response", addResponse)
   }
 
-  const renderedItems: ReactElement[] = wishlistState.map((item, index) => {
-    return (
-      <div key={item.item}>
-        <label>
-          {item.checked !== null && <input
-            type="checkbox"
-            id={`${index}`}
-            checked={item.checked}
-            onChange={toggleCheckbox}
-          />}
-          {item.item}
-        </label>
-      </div>
-    )
-  })
+  const deleteWishlistItem = async (index: number) => {
+    const itemToDelete = wishlistState[index]
+    const url = `/api/v1/wishlists/${props.wishlist.id}/wishlist_items/${itemToDelete.id}`
+    const deleteResponse = await axios.delete(url)
+    const newWishlistState = wishlistState.splice(index, 1)
+    setWishlistState(newWishlistState)
+    console.log("Delete response", deleteResponse)
+  }
+
+  const listDisplay = (
+    <List>
+      {wishlistState.map((wishlistItem: WishlistItemT, index: number) => {
+        return (
+          <ListItem key={index}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                checked={wishlistItem.checked}
+                onChange={() => toggleCheckbox(index)}
+              />
+            </ListItemIcon>
+            <ListItemText primary={wishlistItem.item} />
+            <ListItemSecondaryAction>
+              <IconButton edge="end" onClick={() => deleteWishlistItem(index)}>
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+        )
+      })}
+    </List>
+  )
+
 
   const newItemForm = (
     <form onSubmit={addNewItemToWishlist}>
@@ -60,7 +79,7 @@ const WishlistDisplay: React.FC<{ wishlist: WishlistT }> = (props) => {
   return (
     <div>
       <p>Hello, I'm a Wishlist Display!</p>
-      {renderedItems}
+      {listDisplay}
       {newItemForm}
     </div>
   )
